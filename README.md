@@ -1,1 +1,1 @@
-# Tr-ch-i-o-n-t-n-ng-v-t-qua-h-nh-nh
+# Trò chơi đoán tên động vật thông qua hình ảnh
