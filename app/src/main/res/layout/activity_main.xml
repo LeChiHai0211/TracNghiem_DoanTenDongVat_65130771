@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="GAME ĐỘNG VẬT QUÝ HIẾM"
+        android:text="ĐOÁN TÊN ĐỘNG VẬT"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="#1B5E20"
