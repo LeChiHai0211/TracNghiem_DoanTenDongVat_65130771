@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "923153848116",
+    "project_id": "trochoidtdv",
+    "storage_bucket": "trochoidtdv.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923153848116:android:f10c0b0e58362faea7f761",
+        "android_client_info": {
+          "package_name": "duancuoiky.lechihai.trochoidoantendongvat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwzUMlOGZRY3i_vMREsznn0By2HNO7biU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

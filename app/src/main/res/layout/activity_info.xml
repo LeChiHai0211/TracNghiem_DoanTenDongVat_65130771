@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#E8F5E9"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtTenDongVat"
+        android:text="Tên động vật"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#1B5E20"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtThongTin"
+        android:text="Thông tin động vật"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:layout_marginTop="30dp"
+        android:lineSpacingExtra="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnTiepTheo"
+        android:text="TIẾP THEO"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+</LinearLayout>
