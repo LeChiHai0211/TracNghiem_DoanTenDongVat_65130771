@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/end_game"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/txtKetThuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KẾT THÚC"
+        android:textColor="#1B5E20"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtDiemDatDuoc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/txtDiemDatDuoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Điểm của bạn: 0"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtThongBaoKyLuc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtKetThuc" />
+
+    <TextView
+        android:id="@+id/txtThongBaoKyLuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Kỷ lục hiện tại: 0"
+        android:textColor="#D32F2F"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnChoiLai"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDiemDatDuoc" />
+
+    <Button
+        android:id="@+id/btnChoiLai"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:text="CHƠI LẠI"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnVeMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtThongBaoKyLuc" />
+
+    <Button
+        android:id="@+id/btnVeMenu"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:text="VỀ MENU"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChoiLai" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

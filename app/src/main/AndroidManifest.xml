@@ -13,6 +13,8 @@
 
         <activity android:name=".GameActivity" />
 
+        <activity android:name=".EndGameActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

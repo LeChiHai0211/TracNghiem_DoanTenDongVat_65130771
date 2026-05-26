@@ -1,86 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#FFFFFF"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFF9C4"> <!-- Màu vàng nhạt tươi sáng -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#2E7D32">
+    <!-- Thanh tiêu đề phía trên -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/headerCard"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="-4dp"
+        app:cardBackgroundColor="#4CAF50"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtDiem"
-            android:text="Điểm: 0"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnMenu"
-            android:text="☰"
-            android:textSize="24sp"
-            android:textColor="#FFFFFF"
-            android:background="#1B5E20"
-            android:layout_alignParentEnd="true"
-            android:layout_width="70dp"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txtDiem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="⭐ Điểm: 0"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMenu"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="☰"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:id="@+id/imgAnimal"
-        android:scaleType="centerCrop"
-        android:background="#C8E6C9"
-        android:layout_width="match_parent"
+    <!-- Khung chứa ảnh: Dùng fitCenter để không mất cạnh ảnh -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAnimal"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCard">
 
-    <GridLayout
-        android:columnCount="2"
-        android:rowCount="2"
-        android:padding="8dp"
-        android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imgAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E3F2FD"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <!-- Các nút đáp án: Bo tròn, màu sắc sinh động -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnA"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_margin="8dp"
+        android:backgroundTint="#FF7043"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnC"
+        app:layout_constraintEnd_toStartOf="@+id/btnB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal" />
 
-        <Button
-            android:id="@+id/btnA"
-            android:textSize="16sp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnB"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#42A5F5"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnA"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal" />
 
-        <Button
-            android:id="@+id/btnB"
-            android:textSize="16sp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnC"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#AB47BC"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnD"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnA" />
 
-        <Button
-            android:id="@+id/btnC"
-            android:textSize="16sp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnD"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#66BB6A"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnC"
+        app:layout_constraintTop_toBottomOf="@+id/btnB" />
 
-        <Button
-            android:id="@+id/btnD"
-            android:textSize="16sp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1" />
-
-    </GridLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

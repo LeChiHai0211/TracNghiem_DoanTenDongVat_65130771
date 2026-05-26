@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
-    android:background="#E8F5E9"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/the_gioi_dong_vat"
+    android:padding="24dp">
 
     <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
         android:text="ĐOÁN TÊN ĐỘNG VẬT"
+        android:textColor="#1B5E20"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="#1B5E20"
-        android:gravity="center"
-        android:layout_marginBottom="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:layout_constraintBottom_toTopOf="@+id/btnBatDau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/btnBatDau"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
         android:text="BẮT ĐẦU"
         android:textSize="18sp"
-        android:layout_width="240dp"
-        android:layout_height="60dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnKyLuc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <Button
         android:id="@+id/btnKyLuc"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:text="KỶ LỤC"
         android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:layout_width="240dp"
-        android:layout_height="60dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnThoat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBatDau" />
 
     <Button
         android:id="@+id/btnThoat"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:text="THOÁT"
         android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:layout_width="240dp"
-        android:layout_height="60dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnKyLuc" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

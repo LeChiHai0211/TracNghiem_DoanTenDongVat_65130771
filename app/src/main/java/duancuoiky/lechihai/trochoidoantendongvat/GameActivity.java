@@ -17,6 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -114,16 +116,25 @@ public class GameActivity extends AppCompatActivity {
 
         animalHienTai = dsAnimal.get(viTri);
 
-        int imageId = getResources().getIdentifier(
-                animalHienTai.image,
-                "drawable",
-                getPackageName()
-        );
-
-        if (imageId != 0) {
-            imgAnimal.setImageResource(imageId);
+        // Sử dụng Glide để hiển thị ảnh nguyên vẹn (fitCenter)
+        if (animalHienTai.image != null && animalHienTai.image.startsWith("http")) {
+            Glide.with(this)
+                    .load(animalHienTai.image)
+                    .fitCenter()
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .error(android.R.drawable.ic_delete)
+                    .into(imgAnimal);
         } else {
-            imgAnimal.setImageResource(android.R.drawable.ic_delete);
+            int imageId = getResources().getIdentifier(
+                    animalHienTai.image,
+                    "drawable",
+                    getPackageName()
+            );
+            
+            Glide.with(this)
+                    .load(imageId != 0 ? imageId : android.R.drawable.ic_delete)
+                    .fitCenter()
+                    .into(imgAnimal);
         }
 
         ArrayList<String> dsDapAn = new ArrayList<>();
@@ -164,6 +175,7 @@ public class GameActivity extends AppCompatActivity {
                 Intent intent = new Intent(GameActivity.this, InfoActivity.class);
                 intent.putExtra("ten", animalHienTai.name);
                 intent.putExtra("thongTin", animalHienTai.info);
+                intent.putExtra("hinhAnh", animalHienTai.image);
                 moManHinhThongTin.launch(intent);
             }, 700);
 
@@ -250,22 +262,9 @@ public class GameActivity extends AppCompatActivity {
 
     private void ketThucGame() {
         batTatNut(false);
-
-        database.child("record").child("highScore")
-                .get()
-                .addOnSuccessListener(snapshot -> {
-                    Integer highScore = snapshot.getValue(Integer.class);
-
-                    if (highScore == null) {
-                        highScore = 0;
-                    }
-
-                    if (diem > highScore) {
-                        database.child("record").child("highScore").setValue(diem);
-                        Toast.makeText(this, "Kỷ lục mới: " + diem, Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(this, "Kết thúc! Điểm của bạn: " + diem, Toast.LENGTH_LONG).show();
-                    }
-                });
+        Intent intent = new Intent(GameActivity.this, EndGameActivity.class);
+        intent.putExtra("score", diem);
+        startActivity(intent);
+        finish();
     }
 }

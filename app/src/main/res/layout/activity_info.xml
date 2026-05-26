@@ -1,37 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#E8F5E9"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E1F5FE"
+    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/txtTenDongVat"
-        android:text="Tên động vật"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#1B5E20"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!-- Tiêu đề bo góc màu xanh dương -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#0288D1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtThongTin"
-        android:text="Thông tin động vật"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_marginTop="30dp"
-        android:lineSpacingExtra="6dp"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtTenDongVat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Tên động vật"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Khung ảnh động vật: fitCenter để giữ nguyên vẹn ảnh -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImage"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader">
+
+        <ImageView
+            android:id="@+id/imgAnimalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:scaleType="fitCenter" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Nội dung thông tin trong khung trắng -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardContent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnTiepTheo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardImage">
 
-    <Button
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txtThongTin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="6dp"
+                android:text="Thông tin động vật"
+                android:textColor="#37474F"
+                android:textSize="18sp" />
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Nút Tiếp theo bo tròn cực đại -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTiepTheo"
-        android:text="TIẾP THEO"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:backgroundTint="#4CAF50"
+        android:text="TIẾP THEO ➔"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:cornerRadius="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
