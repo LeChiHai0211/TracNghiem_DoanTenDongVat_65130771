@@ -13,11 +13,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,13 +79,20 @@ public class GameActivity extends AppCompatActivity {
 
                     for (DataSnapshot item : snapshot.getChildren()) {
                         Animal animal = item.getValue(Animal.class);
-                        if (animal != null) {
+
+                        if (animal != null
+                                && animal.name != null
+                                && !animal.name.trim().isEmpty()
+                                && animal.wrongAnswers != null
+                                && animal.wrongAnswers.size() >= 3) {
+
+                            animal.name = animal.name.trim();
                             dsAnimal.add(animal);
                         }
                     }
 
                     if (dsAnimal.size() == 0) {
-                        Toast.makeText(this, "Chưa có dữ liệu động vật", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Chưa có dữ liệu động vật hợp lệ", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -98,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
                     viTri = 0;
                     diem = 0;
                     txtDiem.setText("⭐ Điểm: 0");
-                    txtProgress.setText("1/20");
+                    txtProgress.setText("1/" + dsAnimal.size());
 
                     hienCauHoi();
                 })
@@ -115,15 +122,61 @@ public class GameActivity extends AppCompatActivity {
 
         resetMauNut();
         batTatNut(true);
-        txtProgress.setText((viTri + 1) + "/" + dsAnimal.size());
 
         animalHienTai = dsAnimal.get(viTri);
+        txtProgress.setText((viTri + 1) + "/" + dsAnimal.size());
 
-        // Sử dụng Glide để hiển thị ảnh nguyên vẹn (fitCenter)
+        if (animalHienTai.name == null || animalHienTai.name.trim().isEmpty()) {
+            viTri++;
+            hienCauHoi();
+            return;
+        }
+
+        hienAnhDongVat();
+
+        ArrayList<String> dsDapAn = new ArrayList<>();
+        String dapAnDung = animalHienTai.name.trim();
+
+        dsDapAn.add(dapAnDung);
+
+        ArrayList<String> dapAnSai = new ArrayList<>(animalHienTai.wrongAnswers);
+        Collections.shuffle(dapAnSai);
+
+        for (String sai : dapAnSai) {
+            if (sai != null
+                    && !sai.trim().isEmpty()
+                    && !sai.trim().equals(dapAnDung)
+                    && !dsDapAn.contains(sai.trim())) {
+
+                dsDapAn.add(sai.trim());
+            }
+
+            if (dsDapAn.size() == 4) {
+                break;
+            }
+        }
+
+        if (dsDapAn.size() < 4) {
+            viTri++;
+            hienCauHoi();
+            return;
+        }
+
+        Collections.shuffle(dsDapAn);
+
+        btnA.setText(dsDapAn.get(0));
+        btnB.setText(dsDapAn.get(1));
+        btnC.setText(dsDapAn.get(2));
+        btnD.setText(dsDapAn.get(3));
+    }
+
+    private void hienAnhDongVat() {
         if (animalHienTai.image != null && animalHienTai.image.startsWith("http")) {
             Glide.with(this)
                     .load(animalHienTai.image)
                     .fitCenter()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .error(android.R.drawable.ic_delete)
                     .into(imgAnimal);
@@ -133,35 +186,14 @@ public class GameActivity extends AppCompatActivity {
                     "drawable",
                     getPackageName()
             );
-            
+
             Glide.with(this)
                     .load(imageId != 0 ? imageId : android.R.drawable.ic_delete)
                     .fitCenter()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(imgAnimal);
         }
-
-        ArrayList<String> dsDapAn = new ArrayList<>();
-
-        dsDapAn.add(animalHienTai.name);
-
-        if (animalHienTai.wrongAnswers != null) {
-            Collections.shuffle(animalHienTai.wrongAnswers);
-
-            for (int i = 0; i < animalHienTai.wrongAnswers.size() && i < 3; i++) {
-                dsDapAn.add(animalHienTai.wrongAnswers.get(i));
-            }
-        }
-
-        while (dsDapAn.size() < 4) {
-            dsDapAn.add("Đáp án khác");
-        }
-
-        Collections.shuffle(dsDapAn);
-
-        btnA.setText(dsDapAn.get(0));
-        btnB.setText(dsDapAn.get(1));
-        btnC.setText(dsDapAn.get(2));
-        btnD.setText(dsDapAn.get(3));
     }
 
     private void kiemTraDapAn(Button btnChon) {
@@ -200,7 +232,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void hienNutDapAnDung() {
-        android.content.res.ColorStateList colorGreen = android.content.res.ColorStateList.valueOf(Color.GREEN);
+        android.content.res.ColorStateList colorGreen =
+                android.content.res.ColorStateList.valueOf(Color.GREEN);
+
         if (btnA.getText().toString().equals(animalHienTai.name)) {
             btnA.setBackgroundTintList(colorGreen);
         } else if (btnB.getText().toString().equals(animalHienTai.name)) {
