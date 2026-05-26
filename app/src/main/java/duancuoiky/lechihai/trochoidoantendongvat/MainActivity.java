@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnThoat = findViewById(R.id.btnThoat);
 
         database = FirebaseDatabase.getInstance().getReference();
+        // DataHelper.importAnimalData(); // Đã nạp dữ liệu thành công, comment lại để bảo vệ dữ liệu Firebase
 
         btnBatDau.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GameActivity.class);

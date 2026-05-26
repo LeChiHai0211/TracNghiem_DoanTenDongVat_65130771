@@ -24,7 +24,7 @@ import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity {
 
-    TextView txtDiem;
+    TextView txtDiem, txtProgress;
     ImageView imgAnimal;
     Button btnA, btnB, btnC, btnD, btnMenu;
 
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         txtDiem = findViewById(R.id.txtDiem);
+        txtProgress = findViewById(R.id.txtProgress);
         imgAnimal = findViewById(R.id.imgAnimal);
 
         btnA = findViewById(R.id.btnA);
@@ -96,7 +97,8 @@ public class GameActivity extends AppCompatActivity {
 
                     viTri = 0;
                     diem = 0;
-                    txtDiem.setText("Điểm: 0");
+                    txtDiem.setText("⭐ Điểm: 0");
+                    txtProgress.setText("1/20");
 
                     hienCauHoi();
                 })
@@ -113,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
 
         resetMauNut();
         batTatNut(true);
+        txtProgress.setText((viTri + 1) + "/" + dsAnimal.size());
 
         animalHienTai = dsAnimal.get(viTri);
 
@@ -167,9 +170,9 @@ public class GameActivity extends AppCompatActivity {
         String dapAnChon = btnChon.getText().toString();
 
         if (dapAnChon.equals(animalHienTai.name)) {
-            btnChon.setBackgroundColor(Color.GREEN);
+            btnChon.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.GREEN));
             diem += 10;
-            txtDiem.setText("Điểm: " + diem);
+            txtDiem.setText("⭐ Điểm: " + diem);
 
             btnChon.postDelayed(() -> {
                 Intent intent = new Intent(GameActivity.this, InfoActivity.class);
@@ -180,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
             }, 700);
 
         } else {
-            btnChon.setBackgroundColor(Color.RED);
+            btnChon.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.RED));
             hienNutDapAnDung();
 
             Toast.makeText(
@@ -197,22 +200,23 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void hienNutDapAnDung() {
+        android.content.res.ColorStateList colorGreen = android.content.res.ColorStateList.valueOf(Color.GREEN);
         if (btnA.getText().toString().equals(animalHienTai.name)) {
-            btnA.setBackgroundColor(Color.GREEN);
+            btnA.setBackgroundTintList(colorGreen);
         } else if (btnB.getText().toString().equals(animalHienTai.name)) {
-            btnB.setBackgroundColor(Color.GREEN);
+            btnB.setBackgroundTintList(colorGreen);
         } else if (btnC.getText().toString().equals(animalHienTai.name)) {
-            btnC.setBackgroundColor(Color.GREEN);
+            btnC.setBackgroundTintList(colorGreen);
         } else if (btnD.getText().toString().equals(animalHienTai.name)) {
-            btnD.setBackgroundColor(Color.GREEN);
+            btnD.setBackgroundTintList(colorGreen);
         }
     }
 
     private void resetMauNut() {
-        btnA.setBackgroundColor(Color.LTGRAY);
-        btnB.setBackgroundColor(Color.LTGRAY);
-        btnC.setBackgroundColor(Color.LTGRAY);
-        btnD.setBackgroundColor(Color.LTGRAY);
+        btnA.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FF7043")));
+        btnB.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#42A5F5")));
+        btnC.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#AB47BC")));
+        btnD.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#66BB6A")));
     }
 
     private void batTatNut(boolean trangThai) {

@@ -11,4 +11,11 @@ public class Animal {
     public Animal() {
         // Constructor rỗng bắt buộc cho Firebase
     }
+
+    public Animal(String name, String image, String info, List<String> wrongAnswers) {
+        this.name = name;
+        this.image = image;
+        this.info = info;
+        this.wrongAnswers = wrongAnswers;
+    }
 }
