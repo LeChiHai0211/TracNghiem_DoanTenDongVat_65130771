@@ -1,8 +1,11 @@
 package duancuoiky.lechihai.trochoidoantendongvat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -24,7 +27,7 @@ import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity {
 
-    TextView txtDiem, txtProgress;
+    TextView txtDiem, txtProgress, txtTimer;
     ImageView imgAnimal;
     Button btnA, btnB, btnC, btnD, btnMenu;
 
@@ -35,6 +38,10 @@ public class GameActivity extends AppCompatActivity {
     int diem = 0;
     Animal animalHienTai;
 
+    MediaPlayer soundCorrect, soundWrong, soundTimer, backgroundMusic;
+    CountDownTimer countDownTimer;
+    boolean isSoundOn = true;
+
     ActivityResultLauncher<Intent> moManHinhThongTin;
 
     @Override
@@ -44,6 +51,7 @@ public class GameActivity extends AppCompatActivity {
 
         txtDiem = findViewById(R.id.txtDiem);
         txtProgress = findViewById(R.id.txtProgress);
+        txtTimer = findViewById(R.id.txtTimer);
         imgAnimal = findViewById(R.id.imgAnimal);
 
         btnA = findViewById(R.id.btnA);
@@ -52,7 +60,21 @@ public class GameActivity extends AppCompatActivity {
         btnD = findViewById(R.id.btnD);
         btnMenu = findViewById(R.id.btnMenu);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("GameSettings", MODE_PRIVATE);
+        isSoundOn = sharedPreferences.getBoolean("sound_on", true);
+
         database = FirebaseDatabase.getInstance().getReference();
+
+        soundCorrect = MediaPlayer.create(this, R.raw.amthanhtraloidung);
+        soundWrong = MediaPlayer.create(this, R.raw.amthanhtraloisai);
+        soundTimer = MediaPlayer.create(this, R.raw.amthanhbodemthoigian);
+
+        backgroundMusic = MediaPlayer.create(this, R.raw.amthanhchaynen);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.3f, 0.3f);
+        if (isSoundOn) {
+            backgroundMusic.start();
+        }
 
         moManHinhThongTin = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -105,7 +127,6 @@ public class GameActivity extends AppCompatActivity {
                     viTri = 0;
                     diem = 0;
                     txtDiem.setText("⭐ Điểm: 0");
-                    txtProgress.setText("1/" + dsAnimal.size());
 
                     hienCauHoi();
                 })
@@ -126,13 +147,8 @@ public class GameActivity extends AppCompatActivity {
         animalHienTai = dsAnimal.get(viTri);
         txtProgress.setText((viTri + 1) + "/" + dsAnimal.size());
 
-        if (animalHienTai.name == null || animalHienTai.name.trim().isEmpty()) {
-            viTri++;
-            hienCauHoi();
-            return;
-        }
-
         hienAnhDongVat();
+        batDauDemGio();
 
         ArrayList<String> dsDapAn = new ArrayList<>();
         String dapAnDung = animalHienTai.name.trim();
@@ -170,38 +186,89 @@ public class GameActivity extends AppCompatActivity {
         btnD.setText(dsDapAn.get(3));
     }
 
-    private void hienAnhDongVat() {
-        if (animalHienTai.image != null && animalHienTai.image.startsWith("http")) {
-            Glide.with(this)
-                    .load(animalHienTai.image)
-                    .fitCenter()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .placeholder(android.R.drawable.ic_menu_gallery)
-                    .error(android.R.drawable.ic_delete)
-                    .into(imgAnimal);
-        } else {
-            int imageId = getResources().getIdentifier(
-                    animalHienTai.image,
-                    "drawable",
-                    getPackageName()
-            );
+    private void batDauDemGio() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
 
-            Glide.with(this)
-                    .load(imageId != 0 ? imageId : android.R.drawable.ic_delete)
-                    .fitCenter()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imgAnimal);
+        if (soundTimer != null && soundTimer.isPlaying()) {
+            soundTimer.pause();
+        }
+
+        countDownTimer = new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                txtTimer.setText((millisUntilFinished / 1000) + "s");
+                if (isSoundOn) {
+                    phatLaiAmThanh(soundTimer);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                txtTimer.setText("0s");
+                if (soundTimer != null && soundTimer.isPlaying()) {
+                    soundTimer.pause();
+                }
+                
+                batTatNut(false);
+                hienNutDapAnDung();
+                if (isSoundOn) {
+                    phatLaiAmThanh(soundWrong);
+                }
+
+                Toast.makeText(
+                        GameActivity.this,
+                        "Hết giờ! Đáp án đúng: " + animalHienTai.name,
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                imgAnimal.postDelayed(() -> {
+                    viTri++;
+                    hienCauHoi();
+                }, 2000);
+            }
+        }.start();
+    }
+
+    private void phatLaiAmThanh(MediaPlayer mediaPlayer) {
+        if (mediaPlayer != null && isSoundOn) {
+            mediaPlayer.seekTo(0);
+            mediaPlayer.start();
         }
     }
 
+    private void hienAnhDongVat() {
+        int imageId = getResources().getIdentifier(
+                animalHienTai.image,
+                "drawable",
+                getPackageName()
+        );
+
+        Glide.with(this)
+                .load(imageId != 0 ? imageId : android.R.drawable.ic_delete)
+                .fitCenter()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imgAnimal);
+    }
+
     private void kiemTraDapAn(Button btnChon) {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        
+        if (soundTimer != null && soundTimer.isPlaying()) {
+            soundTimer.pause();
+        }
+
         batTatNut(false);
 
         String dapAnChon = btnChon.getText().toString();
 
         if (dapAnChon.equals(animalHienTai.name)) {
+            phatLaiAmThanh(soundCorrect);
+
             btnChon.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.GREEN));
             diem += 10;
             txtDiem.setText("⭐ Điểm: " + diem);
@@ -215,6 +282,8 @@ public class GameActivity extends AppCompatActivity {
             }, 700);
 
         } else {
+            phatLaiAmThanh(soundWrong);
+
             btnChon.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.RED));
             hienNutDapAnDung();
 
@@ -289,20 +358,69 @@ public class GameActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     Integer highScore = snapshot.getValue(Integer.class);
-
-                    if (highScore == null) {
-                        highScore = 0;
-                    }
+                    if (highScore == null) highScore = 0;
 
                     Toast.makeText(this, "Kỷ lục: " + highScore, Toast.LENGTH_LONG).show();
                 });
     }
 
     private void ketThucGame() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
         batTatNut(false);
+
         Intent intent = new Intent(GameActivity.this, EndGameActivity.class);
         intent.putExtra("score", diem);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (backgroundMusic != null && backgroundMusic.isPlaying()) {
+            backgroundMusic.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isSoundOn && backgroundMusic != null && !backgroundMusic.isPlaying()) {
+            backgroundMusic.start();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
+        if (soundCorrect != null) {
+            soundCorrect.release();
+            soundCorrect = null;
+        }
+
+        if (soundWrong != null) {
+            soundWrong.release();
+            soundWrong = null;
+        }
+
+        if (soundTimer != null) {
+            soundTimer.release();
+            soundTimer = null;
+        }
+
+        if (backgroundMusic != null) {
+            backgroundMusic.release();
+            backgroundMusic = null;
+        }
     }
 }

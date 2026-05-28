@@ -1,6 +1,7 @@
 package duancuoiky.lechihai.trochoidoantendongvat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,8 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnBatDau, btnKyLuc, btnThoat;
+    Button btnBatDau, btnKyLuc, btnThoat, btnAmThanh;
     DatabaseReference database;
+    boolean isSoundOn = true;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         btnBatDau = findViewById(R.id.btnBatDau);
         btnKyLuc = findViewById(R.id.btnKyLuc);
         btnThoat = findViewById(R.id.btnThoat);
+        btnAmThanh = findViewById(R.id.btnAmThanh);
+
+        sharedPreferences = getSharedPreferences("GameSettings", MODE_PRIVATE);
+        isSoundOn = sharedPreferences.getBoolean("sound_on", true);
+        updateSoundButtonText();
 
         database = FirebaseDatabase.getInstance().getReference();
         // DataHelper.importAnimalData(); // Đã nạp dữ liệu thành công, comment lại để bảo vệ dữ liệu Firebase
@@ -30,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         btnBatDau.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GameActivity.class);
             startActivity(intent);
+        });
+
+        btnAmThanh.setOnClickListener(v -> {
+            isSoundOn = !isSoundOn;
+            sharedPreferences.edit().putBoolean("sound_on", isSoundOn).apply();
+            updateSoundButtonText();
         });
 
         btnKyLuc.setOnClickListener(v -> {
@@ -58,5 +72,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnThoat.setOnClickListener(v -> finish());
+    }
+
+    private void updateSoundButtonText() {
+        if (isSoundOn) {
+            btnAmThanh.setText("BẬT ÂM");
+        } else {
+            btnAmThanh.setText("TẮT ÂM");
+        }
     }
 }
