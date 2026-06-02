@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("GameSettings", MODE_PRIVATE);
         isSoundOn = sharedPreferences.getBoolean("sound_on", true);
         updateSoundButtonText();
+        
+        if (isSoundOn) {
+            startService(new Intent(this, BackgroundMusicService.class));
+        }
 
         database = FirebaseDatabase.getInstance().getReference();
         // DataHelper.importAnimalData(); // Đã nạp dữ liệu thành công, comment lại để bảo vệ dữ liệu Firebase
@@ -44,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
             isSoundOn = !isSoundOn;
             sharedPreferences.edit().putBoolean("sound_on", isSoundOn).apply();
             updateSoundButtonText();
+            
+            if (isSoundOn) {
+                startService(new Intent(this, BackgroundMusicService.class));
+            } else {
+                stopService(new Intent(this, BackgroundMusicService.class));
+            }
         });
 
         btnKyLuc.setOnClickListener(v -> {
@@ -71,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
                     });
         });
 
-        btnThoat.setOnClickListener(v -> finish());
+        btnThoat.setOnClickListener(v -> {
+            stopService(new Intent(MainActivity.this, BackgroundMusicService.class));
+            finish();
+        });
     }
 
     private void updateSoundButtonText() {

@@ -26,6 +26,8 @@
 
         </activity>
 
+        <service android:name=".BackgroundMusicService" />
+
     </application>
 
 </manifest>

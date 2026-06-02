@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
     int diem = 0;
     Animal animalHienTai;
 
-    MediaPlayer soundCorrect, soundWrong, soundTimer, backgroundMusic;
+    MediaPlayer soundCorrect, soundWrong, soundTimer;
     CountDownTimer countDownTimer;
     boolean isSoundOn = true;
 
@@ -68,13 +68,6 @@ public class GameActivity extends AppCompatActivity {
         soundCorrect = MediaPlayer.create(this, R.raw.amthanhtraloidung);
         soundWrong = MediaPlayer.create(this, R.raw.amthanhtraloisai);
         soundTimer = MediaPlayer.create(this, R.raw.amthanhbodemthoigian);
-
-        backgroundMusic = MediaPlayer.create(this, R.raw.amthanhchaynen);
-        backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(0.3f, 0.3f);
-        if (isSoundOn) {
-            backgroundMusic.start();
-        }
 
         moManHinhThongTin = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -380,19 +373,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        if (backgroundMusic != null && backgroundMusic.isPlaying()) {
-            backgroundMusic.pause();
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (isSoundOn && backgroundMusic != null && !backgroundMusic.isPlaying()) {
-            backgroundMusic.start();
-        }
     }
 
     @Override
@@ -416,11 +401,6 @@ public class GameActivity extends AppCompatActivity {
         if (soundTimer != null) {
             soundTimer.release();
             soundTimer = null;
-        }
-
-        if (backgroundMusic != null) {
-            backgroundMusic.release();
-            backgroundMusic = null;
         }
     }
 }
