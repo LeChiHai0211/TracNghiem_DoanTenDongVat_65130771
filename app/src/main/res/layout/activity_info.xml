@@ -62,7 +62,7 @@
         android:layout_marginBottom="20dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnTiepTheo"
+        app:layout_constraintBottom_toTopOf="@+id/cardTiepTheo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardImage">
@@ -83,18 +83,26 @@
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Nút Tiếp theo bo tròn cực đại -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTiepTheo"
+    <!-- Nút Tiếp theo phong cách vỏ cây bo tròn -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTiepTheo"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:backgroundTint="#4CAF50"
-        android:text="TIẾP THEO ➔"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:cornerRadius="32dp"
+        android:layout_height="70dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+        <Button
+            android:id="@+id/btnTiepTheo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:text="⏭️ TIẾP THEO"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,52 +23,92 @@
         app:layout_constraintTop_toTopOf="parent" />
 <!--    app:layout_constraintVertical_chainStyle="packed"-->
 
-    <Button
-        android:id="@+id/btnThoat"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="THOÁT"
-        android:textSize="18sp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBatDau"
+        android:layout_width="280dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="180dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnKyLuc" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
+        <Button
+            android:id="@+id/btnBatDau"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:text="▶ BẮT ĐẦU"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/btnBatDau"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="200dp"
-        android:text="BẮT ĐẦU"
-        android:textSize="18sp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardKyLuc"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/cardBatDau">
+        <Button
+            android:id="@+id/btnKyLuc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:text="🏆 KỶ LỤC"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/btnKyLuc"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="KỶ LỤC"
-        android:textSize="18sp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardThoat"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBatDau" />
+        app:layout_constraintTop_toBottomOf="@+id/cardKyLuc">
+        <Button
+            android:id="@+id/btnThoat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:text="🚪 THOÁT"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/btnAmThanh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="BẬT ÂM"
-        android:textSize="18sp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAmThanh"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThoat" />
+        app:layout_constraintTop_toBottomOf="@+id/cardThoat">
+        <Button
+            android:id="@+id/btnAmThanh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:text="🔊 BẬT ÂM"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

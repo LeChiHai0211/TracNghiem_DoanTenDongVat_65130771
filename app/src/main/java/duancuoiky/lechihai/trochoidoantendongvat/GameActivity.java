@@ -41,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
     MediaPlayer soundCorrect, soundWrong, soundTimer;
     CountDownTimer countDownTimer;
     boolean isSoundOn = true;
+    boolean isPaused = false;
+    long timeLeftInMillis = 10000;
 
     ActivityResultLauncher<Intent> moManHinhThongTin;
 
@@ -141,7 +143,9 @@ public class GameActivity extends AppCompatActivity {
         txtProgress.setText((viTri + 1) + "/" + dsAnimal.size());
 
         hienAnhDongVat();
-        batDauDemGio();
+        timeLeftInMillis = 10000;
+        isPaused = false;
+        batDauDemGio(timeLeftInMillis);
 
         ArrayList<String> dsDapAn = new ArrayList<>();
         String dapAnDung = animalHienTai.name.trim();
@@ -179,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
         btnD.setText(dsDapAn.get(3));
     }
 
-    private void batDauDemGio() {
+    private void batDauDemGio(long millisInFuture) {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
@@ -188,9 +192,10 @@ public class GameActivity extends AppCompatActivity {
             soundTimer.pause();
         }
 
-        countDownTimer = new CountDownTimer(10000, 1000) {
+        countDownTimer = new CountDownTimer(millisInFuture, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
                 txtTimer.setText((millisUntilFinished / 1000) + "s");
                 if (isSoundOn) {
                     phatLaiAmThanh(soundTimer);
@@ -199,6 +204,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                timeLeftInMillis = 0;
                 txtTimer.setText("0s");
                 if (soundTimer != null && soundTimer.isPlaying()) {
                     soundTimer.pause();
@@ -309,10 +315,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void resetMauNut() {
-        btnA.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FF7043")));
-        btnB.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#42A5F5")));
-        btnC.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#AB47BC")));
-        btnD.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#66BB6A")));
+        // Xóa màu Tint để hiện rõ vân gỗ của hình nền bg_btn
+        btnA.setBackgroundTintList(null);
+        btnB.setBackgroundTintList(null);
+        btnC.setBackgroundTintList(null);
+        btnD.setBackgroundTintList(null);
     }
 
     private void batTatNut(boolean trangThai) {
@@ -325,18 +332,24 @@ public class GameActivity extends AppCompatActivity {
     private void hienMenu() {
         PopupMenu popupMenu = new PopupMenu(this, btnMenu);
 
-        popupMenu.getMenu().add("Chơi lại");
-        popupMenu.getMenu().add("Kỷ lục");
-        popupMenu.getMenu().add("Thoát");
+        String textPause = isPaused ? "▶️ TIẾP TỤC" : "⏸️ TẠM NGƯNG";
+        popupMenu.getMenu().add(textPause);
+        popupMenu.getMenu().add("🔄 Chơi lại");
+        popupMenu.getMenu().add("🏆 Kỷ lục");
+        popupMenu.getMenu().add("🚪 Thoát");
 
         popupMenu.setOnMenuItemClickListener(item -> {
             String chon = item.getTitle().toString();
 
-            if (chon.equals("Chơi lại")) {
+            if (chon.contains("TẠM NGƯNG")) {
+                tamDungGame();
+            } else if (chon.contains("TIẾP TỤC")) {
+                tiepTucGame();
+            } else if (chon.contains("Chơi lại")) {
                 docDuLieuFirebase();
-            } else if (chon.equals("Kỷ lục")) {
+            } else if (chon.contains("Kỷ lục")) {
                 xemKyLuc();
-            } else if (chon.equals("Thoát")) {
+            } else if (chon.contains("Thoát")) {
                 finish();
             }
 
@@ -344,6 +357,37 @@ public class GameActivity extends AppCompatActivity {
         });
 
         popupMenu.show();
+    }
+
+    private void tamDungGame() {
+        isPaused = true;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        if (soundTimer != null && soundTimer.isPlaying()) {
+            soundTimer.pause();
+        }
+        
+        // Tạm dừng nhạc nền
+        Intent intent = new Intent(this, BackgroundMusicService.class);
+        intent.setAction(BackgroundMusicService.ACTION_PAUSE);
+        startService(intent);
+
+        batTatNut(false);
+        Toast.makeText(this, "Đã tạm dừng", Toast.LENGTH_SHORT).show();
+    }
+
+    private void tiepTucGame() {
+        isPaused = false;
+        batDauDemGio(timeLeftInMillis);
+        batTatNut(true);
+
+        // Tiếp tục nhạc nền
+        Intent intent = new Intent(this, BackgroundMusicService.class);
+        intent.setAction(BackgroundMusicService.ACTION_RESUME);
+        startService(intent);
+
+        Toast.makeText(this, "Tiếp tục chơi", Toast.LENGTH_SHORT).show();
     }
 
     private void xemKyLuc() {

@@ -16,6 +16,9 @@ public class BackgroundMusicService extends Service {
         return null;
     }
 
+    public static final String ACTION_PAUSE = "PAUSE_MUSIC";
+    public static final String ACTION_RESUME = "RESUME_MUSIC";
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mediaPlayer == null) {
@@ -23,9 +26,23 @@ public class BackgroundMusicService extends Service {
             mediaPlayer.setLooping(true);
             mediaPlayer.setVolume(0.3f, 0.3f);
         }
-        
-        if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
+
+        if (intent != null && intent.getAction() != null) {
+            String action = intent.getAction();
+            if (action.equals(ACTION_PAUSE)) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+            } else if (action.equals(ACTION_RESUME)) {
+                if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                }
+            }
+        } else {
+            // Mặc định khởi chạy nhạc nếu không có action đặc biệt
+            if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+            }
         }
         
         return START_STICKY;

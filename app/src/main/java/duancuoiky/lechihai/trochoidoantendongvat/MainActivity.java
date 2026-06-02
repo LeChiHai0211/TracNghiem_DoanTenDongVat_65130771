@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateSoundButtonText() {
         if (isSoundOn) {
-            btnAmThanh.setText("BẬT ÂM");
+            btnAmThanh.setText("🔊 BẬT ÂM");
         } else {
-            btnAmThanh.setText("TẮT ÂM");
+            btnAmThanh.setText("🔇 TẮT ÂM");
         }
     }
 }

@@ -88,16 +88,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Khung chứa ảnh: Dùng fitCenter để không mất cạnh ảnh -->
+    <!-- Khung chứa ảnh: Thêm viền vàng cam nổi bật -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardAnimal"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
         app:cardCornerRadius="24dp"
-        app:cardElevation="4dp"
-        app:strokeColor="#FFFFFF"
-        app:strokeWidth="6dp"
+        app:cardElevation="8dp"
+        app:strokeColor="#FF9800"
+        app:strokeWidth="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,8 +107,8 @@
             android:id="@+id/imgAnimal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E3F2FD"
-            android:padding="8dp"
+            android:background="#FFFFFF"
+            android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@android:drawable/ic_menu_gallery" />
     </com.google.android.material.card.MaterialCardView>
@@ -120,73 +120,113 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
 
-    <!-- Các nút đáp án: Bo tròn, màu sắc sinh động -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnA"
+    <!-- Các nút đáp án: Phong cách vỏ cây rừng xanh bo tròn -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardA"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:backgroundTint="#FF7043"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnC"
-        app:layout_constraintEnd_toStartOf="@+id/btnB"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardC"
+        app:layout_constraintEnd_toStartOf="@+id/cardB"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnA"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            app:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnB"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardB"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:backgroundTint="#42A5F5"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnD"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnA"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal" />
+        app:layout_constraintStart_toEndOf="@+id/cardA"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            app:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnC"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardC"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:backgroundTint="#AB47BC"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnD"
+        app:layout_constraintEnd_toStartOf="@+id/cardD"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnA" />
+        app:layout_constraintTop_toBottomOf="@+id/cardA">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnC"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            app:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnD"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardD"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:backgroundTint="#66BB6A"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnC"
-        app:layout_constraintTop_toBottomOf="@+id/btnB" />
+        app:layout_constraintStart_toEndOf="@+id/cardC"
+        app:layout_constraintTop_toBottomOf="@+id/cardB">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            app:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
