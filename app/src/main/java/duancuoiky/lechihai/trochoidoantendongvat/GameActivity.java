@@ -115,8 +115,8 @@ public class GameActivity extends AppCompatActivity {
 
                     Collections.shuffle(dsAnimal);
 
-                    if (dsAnimal.size() > 20) {
-                        dsAnimal = new ArrayList<>(dsAnimal.subList(0, 20));
+                    if (dsAnimal.size() > 10) {
+                        dsAnimal = new ArrayList<>(dsAnimal.subList(0, 10));
                     }
 
                     viTri = 0;
@@ -289,7 +289,7 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(
                     this,
                     "Sai! Đáp án đúng: " + animalHienTai.name,
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
             ).show();
 
             btnChon.postDelayed(() -> {
