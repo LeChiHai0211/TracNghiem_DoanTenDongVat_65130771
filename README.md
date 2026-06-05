@@ -15,6 +15,15 @@ Giao diện thông tin loài vật khi trả lời đúng đáp án
 <img width="401" height="819" alt="image" src="https://github.com/user-attachments/assets/4fd51d19-4b41-432c-8919-e2999bbd2c9e" />
 Giao diện khi kết thúc trò chơi
 
+<img width="1407" height="476" alt="image" src="https://github.com/user-attachments/assets/6839926b-ec39-4c26-9f7b-56b3f440ac2c" />
+Dữ liệu được lưu trữ trên firebase
+
+<img width="489" height="931" alt="image" src="https://github.com/user-attachments/assets/6da609a7-89bc-48d4-a600-c4c01f91246b" />
+Cấu trúc dự án
+
+<img width="361" height="239" alt="image" src="https://github.com/user-attachments/assets/5f8a7993-cc1b-4f6f-93b1-e7588aa5d4b1" />
+Ảnh trò chơi trên máy ảo đã được thay icon android
+
 
 
 
