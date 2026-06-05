@@ -1,7 +1,7 @@
 # Trò chơi đoán tên động vật thông qua hình ảnh
-
-<img width="1537" height="649" alt="image" src="https://github.com/user-attachments/assets/e98cc3f4-24e8-402f-a224-867fa9a68592" />
 Ảnh các loài động vật
+<img width="1537" height="649" alt="image" src="https://github.com/user-attachments/assets/e98cc3f4-24e8-402f-a224-867fa9a68592" />
+
 
 <img width="425" height="824" alt="image" src="https://github.com/user-attachments/assets/be9c5a80-f04b-426b-b62f-2354e8eb4aac" />
 Giao diện màn hình chính
