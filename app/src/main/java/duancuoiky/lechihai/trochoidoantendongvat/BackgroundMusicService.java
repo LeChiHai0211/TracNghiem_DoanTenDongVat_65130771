@@ -4,21 +4,17 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-
 import androidx.annotation.Nullable;
 
 public class BackgroundMusicService extends Service {
     private MediaPlayer mediaPlayer;
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
     public static final String ACTION_PAUSE = "PAUSE_MUSIC";
     public static final String ACTION_RESUME = "RESUME_MUSIC";
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mediaPlayer == null) {
@@ -26,7 +22,6 @@ public class BackgroundMusicService extends Service {
             mediaPlayer.setLooping(true);
             mediaPlayer.setVolume(0.3f, 0.3f);
         }
-
         if (intent != null && intent.getAction() != null) {
             String action = intent.getAction();
             if (action.equals(ACTION_PAUSE)) {

@@ -115,8 +115,8 @@ public class GameActivity extends AppCompatActivity {
 
                     Collections.shuffle(dsAnimal);
 
-                    if (dsAnimal.size() > 10) {
-                        dsAnimal = new ArrayList<>(dsAnimal.subList(0, 10));
+                    if (dsAnimal.size() > 10) {//(10 = soluongMongMuon)
+                        dsAnimal = new ArrayList<>(dsAnimal.subList(0, 10));//(0, soluongMongMuon)
                     }
 
                     viTri = 0;
@@ -144,37 +144,31 @@ public class GameActivity extends AppCompatActivity {
 
         hienAnhDongVat();
         timeLeftInMillis = 10000;
+
         isPaused = false;
         batDauDemGio(timeLeftInMillis);
 
         ArrayList<String> dsDapAn = new ArrayList<>();
         String dapAnDung = animalHienTai.name.trim();
-
         dsDapAn.add(dapAnDung);
-
         ArrayList<String> dapAnSai = new ArrayList<>(animalHienTai.wrongAnswers);
         Collections.shuffle(dapAnSai);
-
         for (String sai : dapAnSai) {
             if (sai != null
                     && !sai.trim().isEmpty()
                     && !sai.trim().equals(dapAnDung)
                     && !dsDapAn.contains(sai.trim())) {
-
                 dsDapAn.add(sai.trim());
             }
-
             if (dsDapAn.size() == 4) {
                 break;
             }
         }
-
         if (dsDapAn.size() < 4) {
             viTri++;
             hienCauHoi();
             return;
         }
-
         Collections.shuffle(dsDapAn);
 
         btnA.setText(dsDapAn.get(0));
